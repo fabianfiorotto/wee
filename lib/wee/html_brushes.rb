@@ -792,4 +792,48 @@ module Wee
 
   end
 
+ #---
+ # extra brushes by Fabian Fiorotto
+ #---
+
+ class Brush::AjaxForm < Wee::Brush::FormTag
+
+	 def initialize
+	  @success = ""
+	  super
+	 end
+
+	 def target(div)
+	  @target = div ; self
+	 end
+
+	 def success(javascript)
+	  @success = javascript ;self
+	 end  
+
+
+	 def with(&block)
+	  @callback = Proc.new{} if @callback.nil?
+	  @attributes[:action] = @canvas.url_for_callback(@canvas.session.render_ajax_proc(@callback, @canvas.current_component))
+	  @success  = "$('##{@target}').html(request);" + @success unless @target.nil?
+	  @attributes[:onsubmit]  = %Q{
+		$.ajax({  
+			data:$.param($(this).serializeArray()),
+			success: function(request){ #{@success} },
+			type:'post', 
+			url:'#{@attributes[:action]}'
+		});
+		return false;
+		}
+	  super(&block)
+	  return self
+	 end
+
+
+	 def __callback 
+
+	 end
+end #ajax form class
+
+
 end # module Wee

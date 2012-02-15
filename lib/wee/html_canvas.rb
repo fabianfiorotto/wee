@@ -86,6 +86,8 @@ module Wee
     brush_tag :bold, Brush::GenericTagBrush, :b
     brush_tag :paragraph, Brush::GenericTagBrush, :p
     brush_tag :break, Brush::GenericSingleTagBrush, :br
+	#--extra by Fabian Fiorotto
+	brush_tag :ajax_form , Brush::AjaxForm
 
     def select_list(items, &block)
       handle2(Brush::SelectListTag.new(items), &block)
