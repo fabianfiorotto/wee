@@ -6,13 +6,20 @@ module Wee
 	 end
 
 	 def render(r)
-	  	r.page.title(@exception.class.to_s).with{
-		 r.text @exception.class.to_s
-		 r.text " : "
-		 r.text @exception.message
-		}
-	 end 
+	  	r.page.title(@exception.class.to_s).with do
+		 r.paragraph do
+		  r.bold @exception.class.to_s
+		  r.text " : "
+		  r.text @exception.message
+		 end
+		 @exception.backtrace.each do |line|
+		  r.text line
+		  r.break
+		 end
+	 	end 
+	 end
+
+
 
 	end
-
 end
