@@ -232,11 +232,16 @@ module Wee
           @current_page = page
         end
 
-        if request.render?
-          return render(request, page).finish
-        else # request.action?
-          return action(request, page).finish
-        end
+		begin 
+         if request.render?
+           return render(request, page).finish
+         else # request.action?
+           return action(request, page).finish
+         end
+		rescue Exception => e
+		 @root_component = Wee::ErrorPage.new(e)
+		 return render(request, page).finish
+		end
       else
         #
         # either no or invalid page_id specified.  reset to initial state (or

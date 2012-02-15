@@ -14,6 +14,8 @@ require 'wee/root_component'
 require 'wee/task'
 require 'wee/dialog'
 
+require 'wee/components/error_page'
+
 require 'wee/application'
 require 'wee/request'
 require 'wee/response'
