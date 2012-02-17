@@ -15,6 +15,9 @@ require 'wee/task'
 require 'wee/dialog'
 
 require 'wee/components/error_page'
+require 'wee/components/object_browser'
+
+require 'wee/js/jquery_object'
 
 require 'wee/application'
 require 'wee/request'

@@ -94,6 +94,7 @@ module Wee
       super()
       @tag = tag
       @attributes = Hash.new
+      @script = nil
     end
 
     #
@@ -171,7 +172,17 @@ module Wee
       @document.text(text) if text
       @canvas.nest(&block) if block
       @document.end_tag(@tag)
+      @canvas.nest{ @canvas.javascript(@script.to_s) }  unless @script.nil?
       @document = @canvas = nil
+    end
+
+    def javascript(js)
+     if js.respond_to? "oid=" then
+       @attributes[:id] = get_oid unless @attributes.has_key? :id
+       js.oid = @attributes[:id]
+     end  
+     @script = js 
+     return self
     end
 
   end
@@ -179,6 +190,7 @@ module Wee
   class Brush::GenericSingleTagBrush < Brush::GenericTagBrush
     def with
       @document.single_tag(@tag, @attributes) 
+      @canvas.nest{ @canvas.javascript(@script.to_s) }  unless @script.nil?
       @document = @canvas = nil
     end
 
