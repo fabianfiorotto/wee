@@ -19,13 +19,21 @@ module Wee
   
   
    def [](js_variable)
+     if @message then
+       @statements[@statements.length-1] += "." +js_variable 
+     else  
+       @statements << js_variable
+     end
      @message = true;
-     @statements << js_variable
      self
    end
    
    def []=(js_variable,value)
-     @statements << js_variable + " = "+javascript_code(value)+";"
+     if @message then
+       @statements[@statements.length-1] += "." +js_variable + " = "+javascript_code(value) 
+     else  
+       @statements << js_variable + " = "+javascript_code(value)
+     end
      self
    end
   
@@ -38,7 +46,7 @@ module Wee
    end  
    
    def function(*args,&block)
-     @statements = ["function(){#{ block.call unless block.nil? }}"]
+     @statements = ["function(#{ args * ',' }){#{ block.call unless block.nil? }}"]
      self
    end
    
