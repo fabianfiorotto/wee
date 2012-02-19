@@ -1,6 +1,8 @@
 module Wee
  class JQueryAjax < JsObject
   
+  attr_accessor :canvas
+  
   def initialize
      @params = Hash.new
      @data = Array.new
@@ -11,8 +13,13 @@ module Wee
 	 "$.ajax("+  javascript_code(@params) +")"
   end
   
-  def data(canvas,value,&block)  
-   @data << { :name => canvas.register_callback(:input, block) , :value => value } ; self   
+  def data(value, name = nil ,&block)
+   if @canvas.nil? then
+    @data << { :name => name , :value => value }
+   else     
+    @data << { :name => @canvas.register_callback(:input, block) , :value => value }    
+   end 
+   self
   end
   
   def type(type)
@@ -25,16 +32,18 @@ module Wee
     self  
   end 
   
-  def callback(canvas,&block)
-    @params[:url] =  canvas.url_for_callback(canvas.session.render_ajax_proc(block, canvas.current_component))
+  def callback(&block)
+    @params[:url] =  @canvas.url_for_callback(@canvas.session.render_ajax_proc(block, @canvas.current_component))
     self
   end
   
  end
 
  class Component
-  def jqAjax
-   return JQueryAjax.new
+  def jqAjax(canvas = nil)
+   ajax = JQueryAjax.new 
+   ajax.canvas = canvas
+   return ajax
   end
  end
  
