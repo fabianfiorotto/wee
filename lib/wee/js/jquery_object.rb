@@ -12,7 +12,12 @@ module  Wee
   end
 
   def [](value)
-    @arguments = ['\''+value+'\''] ;self
+    if value.kind_of? JsObject then
+      @arguments = [value] ;
+    else
+      @arguments = ['\''+value+'\''] ;
+    end    
+    self
   end
 
   def add_class aCssClass
