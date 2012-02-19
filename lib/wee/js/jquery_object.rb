@@ -1,6 +1,6 @@
 module  Wee
  #require 'json'
- class JQueryObject
+ class JQueryObject < JsObject
   
   def initialize
       @arguments = ['this'] 
@@ -8,15 +8,19 @@ module  Wee
   end
   
   def oid=(value)
-    @arguments = [ '\'#'+value+'\''] # y las comillas?
+    @arguments = [ '\'#'+value+'\''] 
+  end
+
+  def [](value)
+    @arguments = ['\''+value+'\''] ;self
   end
 
   def add_class aCssClass
-    @arguments << '\'.'+aCssClass+'\''
+    @arguments << '\'.'+aCssClass+'\'' ;self
   end
   
   def add_element(htmlElement)
-    @arguments << '\''+htmlElement+'\''
+    @arguments << '\''+htmlElement+'\'' ;self
   end
   
   
@@ -26,7 +30,7 @@ module  Wee
   
       
   def call(name,*args)
-    @stream += "."+name+"(" + (args.map{ |arg|  arg.to_json} * ',') + ")"
+    @stream += "."+name+"(" + (args.map{ |arg|  javascript_code(arg) } * ',') + ")"
     self
   end
   

@@ -17,7 +17,10 @@ require 'wee/dialog'
 require 'wee/components/error_page'
 require 'wee/components/object_browser'
 
+require 'wee/js/js_object'
+require 'wee/js/js_script'
 require 'wee/js/jquery_object'
+require 'wee/js/jquery_ajax'
 
 require 'wee/application'
 require 'wee/request'
