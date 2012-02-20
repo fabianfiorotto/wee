@@ -8,32 +8,13 @@ module Wee
    end
   
    def call(name,*args)
-    if @message then
-     @statements[@statements.length-1] +=  ".#{name}(" + (args.map{ |arg|  javascript_code(arg)} * ',' )+ ")"
-    else
-     @statements << name+"(" + (args.map{ |arg|  javascript_code(arg)} * ',' )+ ")" 
-    end
-    @message = false
+    @statements << name+"(" + (args.map{ |arg|  javascript_code(arg)} * ',' )+ ")" 
     self
    end
   
-  
-   def [](js_variable)
-     if @message then
-       @statements[@statements.length-1] += "." +js_variable 
-     else  
-       @statements << js_variable
-     end
-     @message = true;
-     self
-   end
-   
+     
    def []=(js_variable,value)
-     if @message then
-       @statements[@statements.length-1] += "." +js_variable + " = "+javascript_code(value) 
-     else  
-       @statements << js_variable + " = "+javascript_code(value)
-     end
+     @statements << js_variable.to_s + " = "+javascript_code(value)
      self
    end
   
@@ -51,13 +32,11 @@ module Wee
    end
    
    def if(bool,&block)
-    @message = false
     @statements << "if(#{bool}){#{block.call}}"
     self
    end
 
    def while(bool,&block)
-    @message = false
     @statements << "if(#{bool}){#{block.call}}"
     self
    end
@@ -65,6 +44,15 @@ module Wee
    def else(&block)
     @statements[@statements.length-1] += "else{#{block.call}}"
     self	 
+   end
+   
+   def return(value)
+     @statements << "return "+javascript_code(value) ; self
+   end
+   
+   def << (js)
+     @statements << js.to_s
+     self
    end
    
   end

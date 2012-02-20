@@ -7,7 +7,7 @@ module Wee
 		object.to_s
 	 when String
 		"'" + object.gsub("'", "\\\\'") + "'"
-	 when Numeric
+	 when Numeric , TrueClass, FalseClass
 		object.inspect
 	 when Array
 		"["+ (object.map{|e| javascript_code(e) } * ",") + "]"
@@ -18,8 +18,13 @@ module Wee
 	 end
    end
 
-
-
  end
 
 end
+
+
+require 'wee/js/js_variable'
+require 'wee/js/js_script'
+require 'wee/js/js_operator'
+require 'wee/js/jquery_object'
+require 'wee/js/jquery_ajax'

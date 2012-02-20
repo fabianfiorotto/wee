@@ -9,7 +9,7 @@ module Wee
   end
   
   def to_s
-   @params[:data] = JsScript.new['$'].param(@data)
+   @params[:data] = JsVariable.new['$'].param(@data)
 	 "$.ajax("+  javascript_code(@params) +")"
   end
   
