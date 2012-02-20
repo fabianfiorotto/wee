@@ -845,7 +845,21 @@ module Wee
 	 def __callback 
 
 	 end
-end #ajax form class
+ end #ajax form class
 
-
+ class Brush::ButtonTag < Brush::GenericTagBrush
+    HTML_TAG = 'button'.freeze
+    
+    html_attr :name
+    html_attr :accesskey
+    html_attr :dir
+    html_attr :title
+    html_attr :tabindex
+    
+    def initialize
+      super(HTML_TAG)
+    end
+    
+ end
+   
 end # module Wee
