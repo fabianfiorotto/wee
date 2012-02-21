@@ -827,11 +827,11 @@ module Wee
 	 def with(&block)
 	  @callback = Proc.new{} if @callback.nil?
 	  @attributes[:action] = @canvas.url_for_callback(@canvas.session.render_ajax_proc(@callback, @canvas.current_component))
-	  @success  = "$('##{@target}').html(request);" + @success unless @target.nil?
+	  @success  = "$('##{@target}').html(response);" + @success.to_s unless @target.nil?
 	  @attributes[:onsubmit]  = %Q{
 		$.ajax({  
 			data:$.param($(this).serializeArray()),
-			success: function(request){ #{@success} },
+			success: function(response){ #{@success} },
 			type:'post', 
 			url:'#{@attributes[:action]}'
 		});

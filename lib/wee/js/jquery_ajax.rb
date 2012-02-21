@@ -9,6 +9,9 @@ module Wee
   end
   
   def to_s
+   if not @params.has_key? :error then
+      @params[:error] = JsScript.new.function("data"){ JsScript.new.alert("Error") }  
+   end
    @params[:data] = JsVariable.new['$'].param(@data)
 	 "$.ajax("+  javascript_code(@params) +")"
   end
@@ -35,6 +38,11 @@ module Wee
   def callback(&block)
     @params[:url] =  @canvas.url_for_callback(@canvas.session.render_ajax_proc(block, @canvas.current_component))
     self
+  end
+  
+  def success_replace(id)
+     @params[:success] =  JsScript.new.function("data"){JQueryObject.new[id].html(JsVariable.new["data"]) }
+     self 
   end
   
  end
