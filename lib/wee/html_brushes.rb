@@ -111,6 +111,13 @@ module Wee
       "wee_#{@canvas.current_component.object_id}"
     end
 
+
+    # 
+    # Generate random id
+    #
+    def set_random_id
+      self.id(rand(36**15).to_s(36)) 
+    end
     #
     # generic support for onXXX events
     #
@@ -178,8 +185,8 @@ module Wee
 
     def javascript(js)
      if js.respond_to? "oid=" then
-       @attributes[:id] = get_oid unless @attributes.has_key? :id
-       js.oid = @attributes[:id]
+       self.set_random_id unless @attributes.has_key? :id
+       js.oid = @attributes[:id] 
      end  
      @script = js 
      return self
