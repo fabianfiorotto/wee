@@ -28,6 +28,8 @@ require 'wee/html_document'
 require 'wee/html_brushes'
 require 'wee/html_canvas'
 
+require 'wee/rails_integration'
+
 if RUBY_VERSION >= "1.9"
   begin
     require 'continuation'
