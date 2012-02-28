@@ -30,7 +30,7 @@ if defined? ActionController::Base then
       if not @@weeApplications.has_key? controller then
           @@weeApplications[controller] = { action => wee_application }
       elsif not @@weeApplications[controller].has_key? action then
-          @@weeApplications[controller][action] = wee_aplication 
+          @@weeApplications[controller][action] = wee_application 
       end
       define_method(action) do
           application = @@weeApplications[controller][action] 
