@@ -430,6 +430,10 @@ module Wee
     html_attr :size
     html_attr :maxlength
     html_attr :src
+    html_attr :onfocus
+    html_attr :onblur
+    html_attr :onselect
+    html_attr :onchange
     html_attr :checked,  :type => :bool
     html_attr :disabled, :type => :bool
     html_attr :readonly, :type => :bool
