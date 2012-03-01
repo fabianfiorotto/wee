@@ -12,7 +12,7 @@ module Wee
    if not @params.has_key? :error then
       @params[:error] = JsScript.new.function("data"){ JsScript.new.alert("Error") }  
    end
-   @params[:data] = JsVariable.new['$'].param(@data)
+   @params[:data] = JsVariable.new['$'].param(@data) if not @data.empty?
 	 "$.ajax("+  javascript_code(@params) +")"
   end
   
