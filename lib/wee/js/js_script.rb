@@ -23,11 +23,23 @@ module Wee
    end
    
    def method_missing(name, *args, &block)
+      index = /function_(.*)/ =~ name.to_s  
+      if  index != 0 then 
         self.call(name.to_s, *args)
+      else
+        fun_name = name.to_s
+        fun_name = fun_name[9..fun_name.length]
+        define_function(fun_name,args,&block)  
+      end
    end  
    
    def function(*args,&block)
      @statements = ["function(#{ args * ',' }){#{ block.call unless block.nil? }}"]
+     self
+   end
+   
+   def define_function(name,args,&block)
+     @statements = ["function #{name}(#{ args * ',' }){#{ block.call unless block.nil? }}"]
      self
    end
    
