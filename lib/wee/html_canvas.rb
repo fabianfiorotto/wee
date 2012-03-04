@@ -89,6 +89,8 @@ module Wee
 	#--extra by Fabian Fiorotto
     brush_tag :ajax_form , Brush::AjaxForm
     brush_tag :button , Brush::ButtonTag
+    brush_tag :iframe , Brush::IFrameTag
+
     
     def select_list(items, &block)
       handle2(Brush::SelectListTag.new(items), &block)

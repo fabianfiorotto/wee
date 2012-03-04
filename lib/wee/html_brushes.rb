@@ -383,6 +383,7 @@ module Wee
 
     html_attr :action
     html_attr :enctype
+    html_attr :target
 
     #
     # Use this enctype when you have a FileUploadTag field.
@@ -826,19 +827,14 @@ module Wee
 	  super
 	 end
 
-	 def target(div)
-	  @target = div ; self
-	 end
-
 	 def success(javascript)
 	  @success = javascript ;self
 	 end  
 
-
 	 def with(&block)
 	  @callback = Proc.new{} if @callback.nil?
 	  @attributes[:action] = @canvas.url_for_callback(@canvas.session.render_ajax_proc(@callback, @canvas.current_component))
-	  @success  = "$('##{@target}').html(response);" + @success.to_s unless @target.nil?
+	  @success  = "$('##{@attributes[:target]}').html(response);" + @success.to_s if @attributes.has_key? :target
 	  @attributes[:onsubmit]  = %Q{
 		$.ajax({  
 			data:$.param($(this).serializeArray()),
@@ -871,6 +867,22 @@ module Wee
       super(HTML_TAG)
     end
     
+ end
+ 
+ class Brush::IFrameTag < Brush::GenericTagBrush
+    HTML_TAG = 'iframe'.freeze
+    
+    html_attr :src
+    html_attr :name
+    html_attr :width
+    html_attr :height
+    html_attr :scrolling
+    html_attr :frameborder
+    
+    def initialize
+      super(HTML_TAG)
+    end 
+   
  end
    
 end # module Wee
