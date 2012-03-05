@@ -239,8 +239,7 @@ module Wee
            return action(request, page).finish
          end
 		rescue Exception => e
-		 @root_component = Wee::ErrorPage.new(e)
-		 return render(request, page).finish
+		 return Wee::ErrorResponse.new(e).finish
 		end
       else
         #

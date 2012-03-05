@@ -57,12 +57,11 @@ module Wee
 
     def initialize(exception)
       super()
-      self << "<html><head><title>Error occured</title></head><body>"
-      self << "<p>#{ escape_html(@exception.inspect) }<br/>"
+      self << "<html><head><title>#{exception.class.name}</title></head><body>"
+      self << "<p> <b>#{exception.class.name}</b> :  #{ escape_html(exception.message) } </p>  "
       self << exception.backtrace.map{|s| escape_html(s)}.join("<br/>") 
-      self << "</p>"
       self << "</body></html>"
     end
   end
-
+  
 end # module Wee
