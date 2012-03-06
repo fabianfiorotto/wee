@@ -64,4 +64,27 @@ module Wee
     end
   end
   
+  class FileResponse < Response
+    #usage:     r.session.send_response(Wee::FileResponse.new(path,r.request.path_info)) 
+        
+    attr_accessor :path
+        
+    def initialize(path,location)
+       @path = path
+       size = File.size?(path) 
+       body = [File.read(path)]
+
+       header =  {
+         "Last-Modified"  => File.mtime(path).httpdate,
+         "Content-Type"   => Rack::Mime.mime_type(File.extname(path), 'text/plain'),
+         "Content-Length" => size.to_s,
+         "Content-Disposition" => "attachment; filename=\"#{File.basename(path)}\"",
+         "Location" => location
+       } 
+       super(body,200,header)
+    end
+    
+    
+  end
+  
 end # module Wee

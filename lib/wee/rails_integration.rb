@@ -35,9 +35,13 @@ if defined? ActionController::Base then
       define_method(action) do
           application = @@weeApplications[controller][action] 
           response =  application.call(request.env)[2]
-          render  :text =>  response.body.to_s,
-                  :status => response.status , 
-                  :location =>response.header['Location']
+          if response.header.has_key? "Content-Disposition" then
+            send_file(response.path)
+          else
+            render  :text =>  response.body.to_s,
+                    :status => response.status , 
+                    :location =>response.header['Location']
+          end        
       end
      end
     end
