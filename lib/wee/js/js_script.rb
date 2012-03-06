@@ -2,7 +2,8 @@ module Wee
  class JsScript < JsObject
     #this object represent a sequence of JavaScript statements.
   
-   def initialize
+   def initialize(canvas = nil)
+    @canvas = canvas
     @statements = Array.new
     @message = false;
    end
@@ -33,6 +34,12 @@ module Wee
       end
    end  
    
+   def callback(&block) 
+    url =  @canvas.url_for_callback(block, :action,{})
+    @statements << "window.location='#{url}'"
+    self
+   end
+    
    def function(*args,&block)
      @statements = ["function(#{ args * ',' }){#{ block.call unless block.nil? }}"]
      self
@@ -70,8 +77,8 @@ module Wee
   end
   
  class Component
-  def jsScript
-   return JsScript.new
+  def jsScript(canvas = nil)
+   return JsScript.new(canvas)
   end
  end
   

@@ -10,6 +10,13 @@ module Wee
      @stream += js_variable 
      self
    end
+   
+   def []=(js_variable,value)
+     @stream += "." if @stream != "" 
+     @stream += js_variable +"="+ javascript_code(value)
+     self
+   end
+
      
    def call(name,*args)
     @stream +=  ".#{name}(" + (args.map{ |arg|  javascript_code(arg)} * ',' )+ ")"
