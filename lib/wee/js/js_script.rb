@@ -19,6 +19,10 @@ module Wee
      self
    end
   
+   def [](*args)
+     @statements += args ; self
+   end
+  
    def to_s
     @statements * ';'
    end
