@@ -22,11 +22,14 @@ module Wee
    def /(v) ; JsOperator.new("/",self,v) end  
    #-- comparison
    def eql(v) ; JsOperator.new("==",self,v) end  
-   def >(v) ; JsOperator.new("<",self,v) end  
-   def <(v) ; JsOperator.new(">",self,v) end  
+   def <(v) ; JsOperator.new("<",self,v) end  
+   def >(v) ; JsOperator.new(">",self,v) end  
    def >=(v) ; JsOperator.new(">=",self,v) end  
    def <=(v) ; JsOperator.new("<=",self,v) end  
-   
+   #-- logic
+   def &(v) ; JsOperator.new("&&",self,v) end  
+   def |(v) ; JsOperator.new("||",self,v) end  
+
  end
 
 end

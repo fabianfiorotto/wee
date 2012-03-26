@@ -89,7 +89,11 @@ module Wee
     html_attr :css_style, :html_name => :style, :aliases => [:style] 
     html_attr :onclick
     html_attr :ondblclick
-
+    html_attr :onmouseover
+    html_attr :onmouseout
+    html_attr :onmousedown
+    html_attr :onmouseup
+    
     def initialize(tag)
       super()
       @tag = tag
@@ -126,6 +130,7 @@ module Wee
               :dblclick => 'ondblclick'.freeze,
               :mouseover => 'onmouseover'.freeze,
               :mouseout => 'onmouseout'.freeze,
+              :keypress => 'onkeypress'.freeze,
               :change => 'onchange'.freeze}.freeze
 
     def javascript_on(event, javascript)
