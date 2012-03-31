@@ -131,6 +131,8 @@ module Wee
               :mouseover => 'onmouseover'.freeze,
               :mouseout => 'onmouseout'.freeze,
               :keypress => 'onkeypress'.freeze,
+              :keydown => 'onkeydown'.freeze,
+              :keyup => 'onkeyup'.freeze,
               :change => 'onchange'.freeze}.freeze
 
     def javascript_on(event, javascript)
