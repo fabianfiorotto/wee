@@ -285,7 +285,7 @@ module Wee
     public :render_ajax_proc
 
     def render(request, page)
-      r = Wee::Renderer.new
+      r = @root_component.renderer_class.new
       r.session   = self
       r.request   = request
       r.response  = Wee::GenericResponse.new
