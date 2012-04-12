@@ -145,7 +145,7 @@ module Wee
     def callback_on(event, &block)
       raise ArgumentError unless block
       url = @canvas.url_for_callback(block)
-      javascript_on(event, "document.location.href='#{ url }'")
+      javascript_on(event, "document.location.href='#{ url }';return false;")
       self
     end
 
