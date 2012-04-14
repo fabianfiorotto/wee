@@ -1,6 +1,6 @@
 module Wee
  class JsOperator < JsObject
-  
+	
   def initialize(operator,arg1,arg2)
     @operator = operator
     @arg1 = arg1

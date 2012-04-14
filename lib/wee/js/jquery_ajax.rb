@@ -10,7 +10,9 @@ module Wee
   
   def to_s
    if not @params.has_key? :error then
-      @params[:error] = JsScript.new.function("data"){ JsScript.new.alert("Error") }  
+      @params[:error] = JsRenderer.new{ |j|
+        j.function("data"){ j.alert("Error") } 
+      }   
    end
    @params[:data] = JsVariable.new['$'].param(@data) if not @data.empty?
 	 "$.ajax("+  javascript_code(@params) +")"
@@ -41,7 +43,9 @@ module Wee
   end
   
   def success_replace(id)
-     @params[:success] =  JsScript.new.function("data"){JQueryObject.new[id].html(JsVariable.new["data"]) }
+     @params[:success] =  JsRenderer.new{ |j|
+       j.function("data"){j.jQuery[id].html(JsVariable.new["data"]) }
+     }  
      self 
   end
   

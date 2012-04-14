@@ -18,6 +18,8 @@ require 'wee/components/error_page'
 require 'wee/components/object_browser'
 
 require 'wee/js/js_object'
+require 'wee/js/js_renderer'
+
 
 require 'wee/application'
 require 'wee/request'

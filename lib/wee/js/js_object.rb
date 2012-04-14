@@ -1,6 +1,7 @@
 module Wee
  class JsObject
 
+
    def javascript_code(object)
 	 case object
 	 when JsObject, Symbol
@@ -24,7 +25,7 @@ end
 
 
 require 'wee/js/js_variable'
-require 'wee/js/js_script'
+require 'wee/js/js_function_call'
 require 'wee/js/js_operator'
 require 'wee/js/jquery_object'
 require 'wee/js/jquery_ajax'
